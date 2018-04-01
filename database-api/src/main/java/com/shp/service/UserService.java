@@ -7,4 +7,6 @@ import com.shp.model.User;
  */
 public interface UserService {
     User getUserByName(String name);
+
+    Integer insertUser(User user);
 }
