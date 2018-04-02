@@ -1,10 +1,11 @@
-package com.shp.serviceImpl;
+package com.shp.serviceImpl.user;
 
 import com.shp.mapper.UserMapper;
 import com.shp.model.User;
 import com.shp.model.UserExample;
 import com.shp.service.UserService;
-import com.sun.org.apache.regexp.internal.RE;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,8 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl implements UserService {
+
+    private final static Log logger = LogFactory.getLog(UserServiceImpl.class);
 
     @Autowired
     private UserMapper userMapper;
