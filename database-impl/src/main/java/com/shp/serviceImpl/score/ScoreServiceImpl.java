@@ -1,4 +1,4 @@
-package com.shp.serviceImpl.user;
+package com.shp.serviceImpl.score;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -15,6 +15,7 @@ import com.shp.result.PageResult;
 import com.shp.service.ScoreService;
 import com.shp.util.ResultFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
@@ -27,6 +28,7 @@ import java.util.Objects;
  * Time: 18:00
  * To change this template use File | Settings | File Templates.
  */
+@Service
 public class ScoreServiceImpl implements ScoreService {
 
     @Autowired
@@ -47,18 +49,20 @@ public class ScoreServiceImpl implements ScoreService {
         PageResult<Score> result = new PageResult();
         result.setPageSize(query.getPageSize());
         result.setPageIndex(query.getPageIndex());
-        UserExample example = new UserExample();
-        UserExample.Criteria criteria = example.createCriteria();
         User user = null;
-        if (Objects.nonNull(query.getUserName())) {
-            criteria.andUserNameEqualTo(query.getUserName());
-        }
-        if (Objects.nonNull(query.getUserPhone())) {
-            criteria.andUserPhoneEqualTo(query.getUserPhone());
-        }
-        List<User> users = userMapper.selectByExample(example);
-        if (!CollectionUtils.isEmpty(users)) {
-            user = users.get(0);
+        if (Objects.nonNull(query.getUserName()) || Objects.nonNull(query.getUserPhone())) {
+            UserExample example = new UserExample();
+            UserExample.Criteria criteria = example.createCriteria();
+            if (Objects.nonNull(query.getUserName())) {
+                criteria.andUserNameEqualTo(query.getUserName());
+            }
+            if (Objects.nonNull(query.getUserPhone())) {
+                criteria.andUserPhoneEqualTo(query.getUserPhone());
+            }
+            List<User> users = userMapper.selectByExample(example);
+            if (!CollectionUtils.isEmpty(users)) {
+                user = users.get(0);
+            }
         }
         ScoreExample example2 = new ScoreExample();
         ScoreExample.Criteria criteria2 = example2.createCriteria();
@@ -81,7 +85,7 @@ public class ScoreServiceImpl implements ScoreService {
 
     @Override
     public BaseResult updateScore(Score score) {
-        int n = scoreMapper.updateByPrimaryKey(score);
+        int n = scoreMapper.updateByPrimaryKeySelective(score);
         BaseResult result = n > 0 ? BaseResult.SUCCESS : ResultFactory.getErrorResult(ResultEnum.SYSTEM_ERROR);
         return result;
     }

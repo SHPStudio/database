@@ -2,6 +2,8 @@ package com.shp.result;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * Created by IntelliJ IDEA.
  * User: sunhaipeng
@@ -10,7 +12,7 @@ import lombok.Data;
  * To change this template use File | Settings | File Templates.
  */
 @Data
-public class BaseResult<T> {
+public class BaseResult<T> implements Serializable {
     private int resultCode;
     private String errorMessage;
     private T data;

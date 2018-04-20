@@ -52,6 +52,9 @@ public class UserServiceImpl implements UserService {
         if (Objects.nonNull(query.getUserPhone())) {
             criteria.andUserPhoneEqualTo(query.getUserPhone());
         }
+        if (Objects.nonNull(query.getUserPassword())) {
+            criteria.andUserPasswordEqualTo(query.getUserPassword());
+        }
         List<User> userList = userMapper.selectByExample(example);
 
         return new BaseResult<>(0, CollectionUtils.isEmpty(userList) ? null : userList.get(0));

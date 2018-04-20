@@ -12,7 +12,7 @@ import org.springframework.context.annotation.ImportResource;
 @SpringBootApplication
 @MapperScan("com.shp.mapper")
 @ImportResource(locations = {"classpath:spring/*.xml"})
-public class Application implements CommandLineRunner {
+public class Application  implements CommandLineRunner{
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
@@ -22,3 +22,10 @@ public class Application implements CommandLineRunner {
         Thread.currentThread().join();
     }
 }
+//@SpringBootApplication
+//@MapperScan("com.shp.mapper")
+//public class Application{
+//    public static void main(String[] args) {
+//        SpringApplication.run(Application.class, args);
+//    }
+//}

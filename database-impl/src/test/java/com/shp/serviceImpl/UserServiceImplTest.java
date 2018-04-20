@@ -2,6 +2,8 @@ package com.shp.serviceImpl;
 
 import com.shp.Application;
 import com.shp.model.User;
+import com.shp.query.UserQuery;
+import com.shp.result.BaseResult;
 import com.shp.service.UserService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import static org.junit.Assert.*;
@@ -25,22 +28,28 @@ public class UserServiceImplTest {
     private UserService userService;
 
     @Test
-    public void getUserByName() throws Exception {
-
+    public void queryUser() throws Exception {
+        UserQuery query = new UserQuery();
+        query.setUserName("孙海鹏");
+        BaseResult<User> userBaseResult = userService.getUserByQuery(query);
+        System.out.println(userBaseResult.getData());
     }
 
     @Test
     public void insertUser() throws Exception {
+        Date date = new Date("2018/03/02");
         User user = new User();
-        user.setUserName("孙海鹏");
-        user.setUserPassword("123456");
-        user.setUserEmail("1328445041@qq.com");
-        user.setUserBirthday(new Date(2018,3,30));
-        user.setUserQq("13245451514");
-        user.setUserPhone("15145441542");
-        int Id = userService.insertUser(user);
-        Assert.assertNotNull(Id);
-        System.out.println("插入的Id:" + Id);
+        user.setUserName("孙海鹏23");
+        user.setUserPassword("12345621");
+        user.setUserEmail("13284450412@qq.com");
+        user.setUserBirthday(date);
+        user.setUserQq("13245451515");
+        user.setUserPhone("15145441512");
+        BaseResult result = userService.insertUser(user);
+        System.out.println(result.getResultCode());
     }
+
+
+
 
 }

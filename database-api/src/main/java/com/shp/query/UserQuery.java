@@ -2,6 +2,7 @@ package com.shp.query;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -17,4 +18,5 @@ public class UserQuery extends BaseQuery{
     private String userEmail;
     private Date userBirthday;
     private String userPhone;
+    private String userPassword;
 }
